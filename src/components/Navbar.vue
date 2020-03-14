@@ -5,12 +5,17 @@
         <a href="#" @click.prevent="$emit('click')">
           <i class="material-icons black-text">dehaze</i>
         </a>
-        <span class="black-text">{{date | date("datetime")}}</span>
+        <span class="black-text">{{ date | date("datetime") }}</span>
       </div>
 
       <ul class="right hide-on-small-and-down">
         <li>
-          <a class="dropdown-trigger black-text" href="#" data-target="dropdown" ref="dropdown">
+          <a
+            class="dropdown-trigger black-text"
+            href="#"
+            data-target="dropdown"
+            ref="dropdown"
+          >
             USER NAME
             <i class="material-icons right">arrow_drop_down</i>
           </a>
@@ -42,8 +47,8 @@ export default {
     dropdown: null
   }),
   methods: {
-    logout() {
-      console.log("Logout");
+    async logout() {
+      await this.$store.dispatch("logout");
       this.$router.push("/login?message=logout");
     }
   },
