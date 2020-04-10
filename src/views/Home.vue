@@ -22,7 +22,6 @@
 <script>
 import HomeBill from "@/components/HomeBill";
 import HomeCurrency from "@/components/HomeCurrency";
-import Loader from "@/components/Loader";
 
 export default {
   name: "Home",
@@ -37,7 +36,6 @@ export default {
   components: {
     HomeBill,
     HomeCurrency,
-    Loader
   }
 };
 </script>
