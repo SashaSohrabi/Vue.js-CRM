@@ -11,10 +11,8 @@
     <Loader v-if="loading" />
 
     <div v-else class="row">
-      <HomeBill 
-        :rates="currency.rates"
-      />
-      <HomeCurrency />
+      <HomeBill :rates="currency.rates" />
+      <HomeCurrency :rates="currency.rates" />
     </div>
   </div>
 </template>
@@ -35,7 +33,7 @@ export default {
   },
   components: {
     HomeBill,
-    HomeCurrency,
+    HomeCurrency
   }
 };
 </script>
