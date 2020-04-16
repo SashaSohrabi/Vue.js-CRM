@@ -5,7 +5,6 @@ export default {
     async fetchCategories({ commit, dispatch }) {
       try {
         const uid = await dispatch("getUid");
-
         const categories =
           (
             await firebase
