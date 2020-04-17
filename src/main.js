@@ -4,6 +4,7 @@ import App from "./App.vue";
 import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
+import tooltipDirective from "@/directives/tooltip.directive";
 import dateFilter from "@/filters/date.filter";
 import currencyFilter from "@/filters/currency.filter";
 import messagePlugin from "@/utils/message.plugin";
@@ -20,7 +21,8 @@ Vue.config.productionTip = false;
 Vue.use(Vuelidate);
 Vue.use(messagePlugin);
 Vue.filter("date", dateFilter);
-Vue.filter("currency", currencyFilter)
+Vue.filter("currency", currencyFilter);
+Vue.directive("tooltip", tooltipDirective);
 Vue.component("Loader", Loader);
 
 firebase.initializeApp({
@@ -30,7 +32,7 @@ firebase.initializeApp({
   projectId: "vue-crm-c5041",
   storageBucket: "vue-crm-c5041.appspot.com",
   messagingSenderId: "689511941070",
-  appId: "1:689511941070:web:616cecf947a13506fce19f"
+  appId: "1:689511941070:web:616cecf947a13506fce19f",
 });
 
 let app;
@@ -40,7 +42,7 @@ firebase.auth().onAuthStateChanged(() => {
     app = new Vue({
       router,
       store,
-      render: h => h(App)
+      render: (h) => h(App),
     }).$mount("#app");
   }
 });
