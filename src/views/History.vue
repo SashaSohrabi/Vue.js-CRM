@@ -35,6 +35,7 @@ export default {
     this.records = records.map(record => {
       return {
         ...record,
+        date: new Date(record.date),
         categoryName: this.categories.find(c => c.id === record.categoryId)
           .title,
         typeClass: record.type === "income" ? "green" : "red",
