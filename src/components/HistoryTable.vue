@@ -12,13 +12,13 @@
     </thead>
 
     <tbody>
-      <tr>
-        <td>1</td>
-        <td>1212</td>
-        <td>12.12.32</td>
-        <td>name</td>
+      <tr v-for="(record, idx) of records" :key="record.id">
+        <td>{{ idx + 1 }}</td>
+        <td>{{ record.amount | currency }}</td>
+        <td>{{ record.date }}</td>
+        <td>{{ record.categoryName }}</td>
         <td>
-          <span class="white-text badge red">Расход</span>
+          <span class="white-text badge" :class="record.typeClass">{{ record.typeText }}</span>
         </td>
         <td>
           <button class="btn-small btn">
@@ -31,5 +31,12 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    records: {
+      required: true,
+      type: Array
+    }
+  }
+};
 </script>
