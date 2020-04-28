@@ -4,11 +4,16 @@
       <h3>Профиль</h3>
     </div>
 
-    <form class="form">
+    <form class="form" @submit.prevent="submitHandler">
       <div class="input-field">
-        <input id="description" type="text" v-model="name" />
+        <input
+          id="description"
+          type="text"
+          v-model="name"
+          :class="{invalid: $v.name.$dirty && !$v.name.required}"
+        />
         <label for="description">Имя</label>
-        <span class="helper-text invalid">name</span>
+        <small class="helper-text invalid" v-if="$v.name.$dirty && !$v.name.required">Введите имя</small>
       </div>
 
       <div class="switch">
@@ -30,10 +35,15 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { required } from "vuelidate/lib/validators";
+
 export default {
   data: () => ({
     name: ""
   }),
+  validations: {
+    name: { required }
+  },
   mounted() {
     this.name = this.info.name;
     setTimeout(() => {
@@ -42,6 +52,20 @@ export default {
   },
   computed: {
     ...mapGetters(["info"])
+  },
+  methods: {
+    async submitHandler() {
+      if (this.$v.$invalid) {
+        this.$v.$touch();
+        return;
+      }
+
+      try {
+        console.log(this.name);
+      } catch (e) {
+        console.log(e);
+      }
+    }
   }
 };
 </script>
