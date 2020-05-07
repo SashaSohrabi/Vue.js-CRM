@@ -23,9 +23,12 @@ import HomeCurrency from "@/components/HomeCurrency";
 
 export default {
   name: "Home",
+  metaInfo: {
+    title: "Счет | CRM",
+  },
   data: () => ({
     loading: true,
-    currency: null
+    currency: null,
   }),
   async mounted() {
     this.currency = await this.$store.dispatch("fetchCurrency");
@@ -36,11 +39,11 @@ export default {
       this.loading = true;
       this.currency = await this.$store.dispatch("fetchCurrency");
       this.loading = false;
-    }
+    },
   },
   components: {
     HomeBill,
-    HomeCurrency
-  }
+    HomeCurrency,
+  },
 };
 </script>

@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuelidate from "vuelidate";
 import Paginate from "vuejs-paginate";
+import VueMeta from "vue-meta";
 import App from "./App.vue";
 import "./registerServiceWorker";
 import router from "./router";
@@ -20,6 +21,7 @@ import "firebase/database";
 Vue.config.productionTip = false;
 
 Vue.use(Vuelidate);
+Vue.use(VueMeta);
 Vue.use(messagePlugin);
 Vue.filter("date", dateFilter);
 Vue.filter("currency", currencyFilter);

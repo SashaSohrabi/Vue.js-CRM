@@ -14,21 +14,35 @@
     <form class="form" v-else @submit.prevent="handleSubmit">
       <div class="input-field">
         <select ref="select" v-model="category">
-          <option v-for="c of categories" :key="c.id" :value="c.id">{{c.title}}</option>
+          <option v-for="c of categories" :key="c.id" :value="c.id">{{
+            c.title
+          }}</option>
         </select>
         <label>Выберите категорию</label>
       </div>
 
       <p>
         <label>
-          <input class="with-gap" name="type" type="radio" value="income" v-model="type" />
+          <input
+            class="with-gap"
+            name="type"
+            type="radio"
+            value="income"
+            v-model="type"
+          />
           <span>Доход</span>
         </label>
       </p>
 
       <p>
         <label>
-          <input class="with-gap" name="type" type="radio" value="outcome" v-model="type" />
+          <input
+            class="with-gap"
+            name="type"
+            type="radio"
+            value="outcome"
+            v-model="type"
+          />
           <span>Расход</span>
         </label>
       </p>
@@ -38,13 +52,14 @@
           id="amount"
           type="number"
           v-model.number="amount"
-          :class="{invalid: $v.amount.$dirty && !$v.amount.minValue}"
+          :class="{ invalid: $v.amount.$dirty && !$v.amount.minValue }"
         />
         <label for="amount">Сумма</label>
         <span
           v-if="$v.amount.$dirty && !$v.amount.minValue"
           class="helper-text invalid"
-        >Минимальная значение {{$v.amount.$params.minValue.min}}</span>
+          >Минимальная значение {{ $v.amount.$params.minValue.min }}</span
+        >
       </div>
 
       <div class="input-field">
@@ -52,13 +67,16 @@
           id="description"
           type="text"
           v-model="description"
-          :class="{invalid: $v.description.$dirty && !$v.description.required}"
+          :class="{
+            invalid: $v.description.$dirty && !$v.description.required,
+          }"
         />
         <label for="description">Описание</label>
         <span
           v-if="$v.description.$dirty && !$v.description.required"
           class="helper-text invalid"
-        >Введите описание</span>
+          >Введите описание</span
+        >
       </div>
 
       <button class="btn waves-effect waves-light" type="submit">
@@ -75,6 +93,9 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "record",
+  metaInfo: {
+    title: "Новая запись | CRM",
+  },
   data: () => ({
     loading: true,
     select: null,
@@ -82,11 +103,11 @@ export default {
     category: null,
     type: "outcome",
     amount: 100,
-    description: ""
+    description: "",
   }),
   validations: {
     amount: { minValue: minValue(100) },
-    description: { required }
+    description: { required },
   },
   async mounted() {
     this.categories = await this.$store.dispatch("fetchCategories");
@@ -108,7 +129,7 @@ export default {
         return true;
       }
       return this.info.bill >= this.amount;
-    }
+    },
   },
   methods: {
     async handleSubmit() {
@@ -124,7 +145,7 @@ export default {
             amount: this.amount,
             description: this.description,
             type: this.type,
-            date: new Date().toJSON()
+            date: new Date().toJSON(),
           });
 
           const bill =
@@ -143,12 +164,12 @@ export default {
           `недостаточно средств на счете (${this.amount - this.info.bill})`
         );
       }
-    }
+    },
   },
   destroyed() {
     if (this.select && this.select.destroy) {
       this.select.destroy();
     }
-  }
+  },
 };
 </script>

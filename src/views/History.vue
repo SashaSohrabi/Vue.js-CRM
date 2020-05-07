@@ -38,11 +38,14 @@ import { Pie } from "vue-chartjs";
 
 export default {
   name: "history",
+  metaInfo: {
+    title: "История | CRM",
+  },
   extends: Pie,
   mixins: [paginationMixin],
   data: () => ({
     loading: true,
-    records: []
+    records: [],
   }),
   async mounted() {
     this.records = await this.$store.dispatch("fetchRecords");
@@ -54,24 +57,25 @@ export default {
   },
   methods: {
     setup(categories) {
-      const record = this.records.map(record => {
+      const record = this.records.map((record) => {
         return {
           ...record,
           date: new Date(record.date),
-          categoryName: categories.find(c => c.id === record.categoryId).title,
+          categoryName: categories.find((c) => c.id === record.categoryId)
+            .title,
           typeClass: record.type === "income" ? "green" : "red",
-          typeText: record.type === "income" ? "Доход" : "Расход"
+          typeText: record.type === "income" ? "Доход" : "Расход",
         };
       });
 
       this.setupPagination(record);
 
       this.renderChart({
-        labels: categories.map(c => c.title),
+        labels: categories.map((c) => c.title),
         datasets: [
           {
             label: "Расходы по категориям",
-            data: categories.map(c => {
+            data: categories.map((c) => {
               return this.records.reduce((total, r) => {
                 if (r.categoryId === c.id && r.type === "outcome") {
                   total += +r.amount;
@@ -85,7 +89,7 @@ export default {
               "rgba(255, 206, 86, 0.2)",
               "rgba(75, 192, 192, 0.2)",
               "rgba(153, 102, 255, 0.2)",
-              "rgba(255, 159, 64, 0.2)"
+              "rgba(255, 159, 64, 0.2)",
             ],
             borderColor: [
               "rgba(255, 99, 132, 1)",
@@ -93,16 +97,16 @@ export default {
               "rgba(255, 206, 86, 1)",
               "rgba(75, 192, 192, 1)",
               "rgba(153, 102, 255, 1)",
-              "rgba(255, 159, 64, 1)"
+              "rgba(255, 159, 64, 1)",
             ],
-            borderWidth: 1
-          }
-        ]
+            borderWidth: 1,
+          },
+        ],
       });
-    }
+    },
   },
   components: {
-    HistoryTable
-  }
+    HistoryTable,
+  },
 };
 </script>

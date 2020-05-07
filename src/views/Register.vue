@@ -10,7 +10,7 @@
           :class="{
             invalid:
               ($v.email.$dirty && !$v.email.required) ||
-              ($v.email.$dirty && !$v.email.email)
+              ($v.email.$dirty && !$v.email.email),
           }"
         />
         <label for="email">Email</label>
@@ -33,7 +33,7 @@
           :class="{
             invalid:
               ($v.password.$dirty && !$v.password.required) ||
-              ($v.password.$dirty && !$v.password.minLength)
+              ($v.password.$dirty && !$v.password.minLength),
           }"
         />
         <label for="password">Пароль</label>
@@ -91,17 +91,20 @@ import { email, required, minLength } from "vuelidate/lib/validators";
 
 export default {
   name: "register",
+  metaInfo: {
+    title: "Зарегистрироваться | CRM",
+  },
   data: () => ({
     email: "",
     password: "",
     name: "",
-    agree: false
+    agree: false,
   }),
   validations: {
     email: { email, required },
     password: { minLength: minLength(8), required },
     name: { required },
-    agree: { checked: v => v }
+    agree: { checked: (v) => v },
   },
   methods: {
     async submitHandler() {
@@ -113,14 +116,14 @@ export default {
       const formData = {
         email: this.email,
         password: this.password,
-        name: this.name
+        name: this.name,
       };
 
       try {
         await this.$store.dispatch("register", formData);
         this.$router.push("/");
       } catch (e) {}
-    }
-  }
+    },
+  },
 };
 </script>

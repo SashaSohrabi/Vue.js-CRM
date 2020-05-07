@@ -10,7 +10,7 @@
           :class="{
             invalid:
               ($v.email.$dirty && !$v.email.required) ||
-              ($v.email.$dirty && !$v.email.email)
+              ($v.email.$dirty && !$v.email.email),
           }"
         />
         <label for="email">Email</label>
@@ -33,7 +33,7 @@
           :class="{
             invalid:
               ($v.password.$dirty && !$v.password.required) ||
-              ($v.password.$dirty && !$v.password.minLength)
+              ($v.password.$dirty && !$v.password.minLength),
           }"
         />
         <label for="password">Пароль</label>
@@ -72,13 +72,16 @@ import messages from "../utils/messages";
 
 export default {
   name: "login",
+  metaInfo: {
+    title: "Войти | CRM",
+  },
   data: () => ({
     email: "",
-    password: ""
+    password: "",
   }),
   validations: {
     email: { email, required },
-    password: { minLength: minLength(8), required }
+    password: { minLength: minLength(8), required },
   },
   mounted() {
     if (messages[this.$route.query.message]) {
@@ -94,14 +97,14 @@ export default {
 
       const formData = {
         email: this.email,
-        password: this.password
+        password: this.password,
       };
 
       try {
         await this.$store.dispatch("login", formData);
         this.$router.push("/");
       } catch (e) {}
-    }
-  }
+    },
+  },
 };
 </script>

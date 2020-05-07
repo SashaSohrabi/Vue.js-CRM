@@ -2,7 +2,7 @@
   <div>
     <div class="page-title">
       <h3>Планирование</h3>
-      <h4>{{info.bill | currency}}</h4>
+      <h4>{{ info.bill | currency }}</h4>
     </div>
 
     <Loader v-if="loading" />
@@ -15,14 +15,14 @@
     <section v-else>
       <div v-for="cat of categories" :key="cat.id">
         <p>
-          <strong>{{cat.title}}:</strong>
-          {{cat.spend | currency}} из {{cat.limit | currency}}
+          <strong>{{ cat.title }}:</strong>
+          {{ cat.spend | currency }} из {{ cat.limit | currency }}
         </p>
         <div class="progress" v-tooltip="cat.tooltip">
           <div
             class="determinate"
             :class="[cat.progressColor]"
-            :style="{width: cat.progressPercent + '%'}"
+            :style="{ width: cat.progressPercent + '%' }"
           ></div>
         </div>
       </div>
@@ -36,21 +36,24 @@ import currencyFilter from "@/filters/currency.filter";
 
 export default {
   name: "planning",
+  metaInfo: {
+    title: "Планирование | CRM",
+  },
   data: () => ({
     loading: true,
-    categories: []
+    categories: [],
   }),
   computed: {
-    ...mapGetters(["info"])
+    ...mapGetters(["info"]),
   },
   async mounted() {
     const records = await this.$store.dispatch("fetchRecords");
     const categories = await this.$store.dispatch("fetchCategories");
 
-    this.categories = categories.map(cat => {
+    this.categories = categories.map((cat) => {
       const spend = records
-        .filter(r => r.categoryId === cat.id)
-        .filter(r => r.type === "outcome")
+        .filter((r) => r.categoryId === cat.id)
+        .filter((r) => r.type === "outcome")
         .reduce((total, record) => {
           return (total += +record.amount);
         }, 0);
@@ -70,11 +73,11 @@ export default {
         progressPercent,
         progressColor,
         spend,
-        tooltip
+        tooltip,
       };
     });
 
     this.loading = false;
-  }
+  },
 };
 </script>
