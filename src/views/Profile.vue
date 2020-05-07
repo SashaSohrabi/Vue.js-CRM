@@ -16,15 +16,6 @@
         <small class="helper-text invalid" v-if="$v.name.$dirty && !$v.name.required">Введите имя</small>
       </div>
 
-      <div class="switch">
-        <label>
-          Off
-          <input type="checkbox" />
-          <span class="lever"></span>
-          On
-        </label>
-      </div>
-
       <button class="btn waves-effect waves-light" type="submit">
         Обновить
         <i class="material-icons right">send</i>
