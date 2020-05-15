@@ -31,7 +31,7 @@
           <span
             v-if="$v.title.$dirty && !$v.limit.minValue"
             class="helper-text invalid"
-          >Минимальная значение {{$v.limit.$params.minValue.min}}</span>
+          >Минимальная величина {{$v.limit.$params.minValue.min | currency}}</span>
         </div>
 
         <button class="btn waves-effect waves-light" type="submit">
